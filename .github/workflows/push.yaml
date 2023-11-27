@@ -27,11 +27,9 @@ jobs:
             - name: Kaniko build
               uses: aevea/action-kaniko@master
               with:
-                  context: .
-                  dockerfile: contrib/docker/Dockerfile
-                  platform: linux/amd64,linux/arm64
-                  args: |
-                    --build-arg MAKEFLAGS="-j ${WORKER_COUNT}"
+                  path: .
+                  build_file: contrib/docker/Dockerfile
+                  args: "--build-arg MAKEFLAGS=-j ${WORKER_COUNT}"
                   registry: harbor.kitzen.io
                   image: kitzen.io/fulcrum
                   username: ${{ steps.vars.outputs.HARBOR_USER }}
